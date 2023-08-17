@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Launch Program",
+            "timeout": -1, // Não irá desligar o debug automaticamente
+            "restart": true, // Quando terminar ele irá reiniciar
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+        }
+    ]
+}

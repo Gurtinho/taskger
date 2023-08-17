@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  name       String
+  email      String
+  password   String
+  avatar     String?
+  category   Category[]
+  tasks      Task[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+
+  @@map("users")
+}
+
+model Task {
+  id         String    @id @default(uuid())
+  title      String
+  message    String?
+  content    String    
+  progress   Int       @default(1)
+  concluded  Boolean   @default(false)
+  user_id    String
+  category_id String
+  option     Option?   
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+
+  user       User      @relation(fields:[user_id], references: [id])
+  category   Category  @relation(fields:[category_id], references: [id])
+
+  @@map("tasks")
+}
+
+model Option {
+  id         String    @id @default(uuid())
+  name       String
+  task_id    String    @unique
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+
+  task       Task       @relation(fields:[task_id], references: [id])
+
+  @@map("options")
+}
+
+model Category {
+  id         String    @id @default(uuid())
+  title      String
+  task       Task[]
+  user_id    String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+
+  user       User      @relation(fields:[user_id], references: [id])
+
+  @@map("categories")
+}
