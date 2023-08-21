@@ -7,6 +7,7 @@ export const Home = () => {
             <p></p>
             <Link to='/signin'>Faça o login</Link>
             <Link to='/signup'>Criar uma conta</Link>
+            <h2>teste</h2>
         </>
     )
 }
